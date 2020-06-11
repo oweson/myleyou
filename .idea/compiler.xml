@@ -8,10 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="leyou-common" />
         <module name="leyou-upload" />
-        <module name="leyou-goods-web" />
         <module name="demo" />
         <module name="leyou-item-service" />
         <module name="leyou-registry" />
+        <module name="leyou-search" />
         <module name="leyou-comments-interface" />
         <module name="leyou-order-interface" />
         <module name="leyou-user-service" />
@@ -21,8 +21,8 @@
         <module name="leyou-comment-service" />
         <module name="leyou-authentication-common" />
         <module name="leyou-mongondb" />
+        <module name="leyou-goods-web" />
         <module name="leyou-api-gateway" />
-        <module name="leyou-search" />
         <module name="leyou-seckill-service" />
         <module name="leyou-seckill-interface" />
         <module name="leyou-item-interface" />
