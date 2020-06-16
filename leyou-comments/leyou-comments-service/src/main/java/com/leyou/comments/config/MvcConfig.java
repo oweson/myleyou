@@ -37,9 +37,11 @@ public class MvcConfig implements WebMvcConfigurer {
         return new LoginInterceptor(jwtProperties);
     }
 
+    /**
+     * 登陆拦截，其他的放行
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
         List<String> excludePath = new ArrayList<>();
         excludePath.add("/list");
         excludePath.add("/commentId/**");

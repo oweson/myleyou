@@ -9,7 +9,7 @@ import com.leyou.user.pojo.User;
  */
 public interface UserService {
     /**
-     * 检查用户名和手机号是否可用
+     * 1 检查用户名和手机号是否可用
      * @param data
      * @param type
      * @return
@@ -17,14 +17,14 @@ public interface UserService {
     Boolean checkData(String data, Integer type);
 
     /**
-     * 发送手机验证码
+     * 2 发送手机验证码
      * @param phone
      * @return
      */
     Boolean sendVerifyCode(String phone);
 
     /**
-     * 用户注册
+     * 3 用户注册
      * @param user
      * @param code
      * @return
@@ -32,7 +32,7 @@ public interface UserService {
     Boolean register(User user, String code);
 
     /**
-     * 用户验证
+     * 4 用户验证
      * @param username
      * @param password
      * @return
@@ -40,7 +40,7 @@ public interface UserService {
     User queryUser(String username, String password);
 
     /**
-     * 根据用户名修改密码
+     * 5 根据用户名修改密码
      * @param username
      * @param newPassword
      * @return

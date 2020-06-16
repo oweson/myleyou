@@ -14,15 +14,19 @@ import java.io.Serializable;
 public class Brand implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /** 1 品牌id*/
     private Long id;
     /**
-     * 品牌名称
+     * 2 品牌名称
      */
     private String name;
     /**
-     * 品牌图片
+     * 3 品牌图片
      */
     private String image;
+    /**
+     * 4 首字母？？？
+     */
     private Character letter;
 
 

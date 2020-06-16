@@ -17,18 +17,20 @@ import java.util.List;
 public interface CategoryApi {
 
     /**
-     * 根据id，查询分类名称
+     * 1 根据id，查询分类名称
+     *
      * @param ids
      * @return
      */
     @GetMapping("names")
-    ResponseEntity<List<String>> queryNameByIds(@RequestParam("ids")List<Long> ids);
+    ResponseEntity<List<String>> queryNameByIds(@RequestParam("ids") List<Long> ids);
 
     /**
-     * 根据分类id集合查询分类名称
+     * 2 根据分类id集合查询分类名称
+     *
      * @param ids
      * @return
      */
     @GetMapping("all")
-    ResponseEntity<List<Category>> queryCategoryByIds(@RequestParam("ids")List<Long> ids);
+    ResponseEntity<List<Category>> queryCategoryByIds(@RequestParam("ids") List<Long> ids);
 }

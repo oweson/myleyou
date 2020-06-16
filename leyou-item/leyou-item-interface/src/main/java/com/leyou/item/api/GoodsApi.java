@@ -22,7 +22,8 @@ import java.util.List;
 public interface GoodsApi {
 
     /**
-     * 分页查询
+     * 1 分页查询
+     *
      * @param page
      * @param rows
      * @param sortBy
@@ -38,9 +39,11 @@ public interface GoodsApi {
             @RequestParam(value = "sortBy", required = false) String sortBy,
             @RequestParam(value = "desc", defaultValue = "false") Boolean desc,
             @RequestParam(value = "key", required = false) String key,
-            @RequestParam(value = "saleable",defaultValue = "true") Boolean saleable);
+            @RequestParam(value = "saleable", defaultValue = "true") Boolean saleable);
+
     /**
-     * 根据spu商品id查询详情
+     * 根2 据spu商品id查询详情
+     *
      * @param id
      * @return
      */
@@ -48,7 +51,8 @@ public interface GoodsApi {
     SpuDetail querySpuDetailBySpuId(@PathVariable("id") Long id);
 
     /**
-     * 根据Spu的id查询其下所有的sku
+     * 3 根据Spu的id查询其下所有的sku
+     *
      * @param id
      * @return
      */
@@ -56,7 +60,8 @@ public interface GoodsApi {
     List<Sku> querySkuBySpuId(@PathVariable("id") Long id);
 
     /**
-     * 根据id查询商品
+     * 4 根据id查询商品
+     *
      * @param id
      * @return
      */
@@ -64,7 +69,8 @@ public interface GoodsApi {
     SpuBo queryGoodsById(@PathVariable("id") Long id);
 
     /**
-     * 根据sku的id查询sku
+     * 5 根据sku的id查询sku
+     *
      * @param id
      * @return
      */
@@ -73,7 +79,8 @@ public interface GoodsApi {
 
 
     /**
-     * 查询秒杀商品
+     * 6 查询秒杀商品
+     *
      * @return
      */
     @GetMapping("/seckill/list")

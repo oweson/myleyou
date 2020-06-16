@@ -3,7 +3,9 @@ package com.leyou.auth.utils;
 import org.apache.commons.lang3.StringUtils;
 
 public class ObjectUtils {
-
+    /**
+     * 1 obj  to  string
+     */
     public static String toString(Object obj) {
         if (obj == null) {
             return null;
@@ -11,6 +13,9 @@ public class ObjectUtils {
         return obj.toString();
     }
 
+    /**
+     * 2 obj  to  long
+     */
     public static Long toLong(Object obj) {
         if (obj == null) {
             return 0L;
@@ -27,6 +32,10 @@ public class ObjectUtils {
             return 0L;
         }
     }
+
+    /**
+     * 3 obj  to int
+     */
 
     public static Integer toInt(Object obj) {
         return toLong(obj).intValue();

@@ -3,6 +3,9 @@ package com.leyou.item.pojo;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 商品规格参数模板
+ */
 @Table(name = "tb_specification")
 public class Specification {
 

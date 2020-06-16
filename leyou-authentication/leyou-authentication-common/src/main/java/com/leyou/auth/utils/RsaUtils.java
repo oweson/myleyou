@@ -14,7 +14,7 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public class RsaUtils {
     /**
-     * 从文件中读取公钥
+     * 1 从文件中读取公钥
      *
      * @param filename 公钥保存路径，相对于classpath
      * @return 公钥对象
@@ -26,7 +26,7 @@ public class RsaUtils {
     }
 
     /**
-     * 从文件中读取密钥
+     * 2 从文件中读取密钥
      *
      * @param filename 私钥保存路径，相对于classpath
      * @return 私钥对象
@@ -38,7 +38,7 @@ public class RsaUtils {
     }
 
     /**
-     * 获取公钥
+     * 3 获取公钥
      *
      * @param bytes 公钥的字节形式
      * @return
@@ -51,7 +51,7 @@ public class RsaUtils {
     }
 
     /**
-     * 获取密钥
+     * 4 获取密钥
      *
      * @param bytes 私钥的字节形式
      * @return
@@ -64,7 +64,7 @@ public class RsaUtils {
     }
 
     /**
-     * 根据密文，生成rsa公钥和私钥,并写入指定文件
+     * 5 根据密文，生成rsa公钥和私钥,并写入指定文件
      *
      * @param publicKeyFilename  公钥文件路径
      * @param privateKeyFilename 私钥文件路径

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("spu")
 public interface SpuApi {
     /**
-     * 分页查询
+     * 1 分页查询
      * @param page
      * @param rows
      * @param desc

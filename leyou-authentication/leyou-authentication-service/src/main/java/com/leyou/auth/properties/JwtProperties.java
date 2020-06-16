@@ -24,25 +24,25 @@ import java.security.PublicKey;
 public class JwtProperties {
 
     /**
-     * 密钥
+     * 1 密钥
      */
     @Value("${leyou.jwt.secret}")
     private String secret;
 
     /**
-     * 公钥地址
+     * 2 公钥地址
      */
     @Value("${leyou.jwt.pubKeyPath}")
     private String pubKeyPath;
 
     /**
-     * 私钥地址
+     * 3 私钥地址
      */
     @Value("${leyou.jwt.priKeyPath}")
     private String priKeyPath;
 
     /**
-     * token过期时间
+     * 4 token过期时间
      */
     @Value("${leyou.jwt.expire}")
     private int expire;

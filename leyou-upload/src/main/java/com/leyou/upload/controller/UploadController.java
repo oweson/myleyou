@@ -23,7 +23,7 @@ public class UploadController {
     private UploadServiceImpl uploadServiceImpl;
 
     /**
-     * 图片上传
+     * 1 图片上传
      * @param file
      * @return
      */

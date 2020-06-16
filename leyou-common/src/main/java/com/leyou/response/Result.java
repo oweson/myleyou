@@ -3,7 +3,7 @@ package com.leyou.response;
 /**
  * @Author: 98050
  * @Time: 2018-11-24 21:41
- * @Feature: 返回结果
+ * @Feature: 返回结果通用类
  */
 public class Result<T> {
 
@@ -12,18 +12,18 @@ public class Result<T> {
     private T data;
 
     /**
-     *  成功时候的调用
-     * */
-    public static  <T> Result<T> success(T data){
+     * 1 成功时候的调用
+     */
+    public static <T> Result<T> success(T data) {
         Result<T> result = new Result<T>(data);
         result.code = CodeMsg.SUCCESS.getCode();
         return new Result<T>(data);
     }
 
     /**
-     *  失败时候的调用
-     * */
-    public static  <T> Result<T> error(CodeMsg codeMsg){
+     * 2 失败时候的调用
+     */
+    public static <T> Result<T> error(CodeMsg codeMsg) {
         return new Result<T>(codeMsg);
     }
 
@@ -37,7 +37,7 @@ public class Result<T> {
     }
 
     private Result(CodeMsg codeMsg) {
-        if(codeMsg != null) {
+        if (codeMsg != null) {
             this.code = codeMsg.getCode();
             this.msg = codeMsg.getMsg();
         }
@@ -47,18 +47,23 @@ public class Result<T> {
     public int getCode() {
         return code;
     }
+
     public void setCode(int code) {
         this.code = code;
     }
+
     public String getMsg() {
         return msg;
     }
+
     public void setMsg(String msg) {
         this.msg = msg;
     }
+
     public T getData() {
         return data;
     }
+
     public void setData(T data) {
         this.data = data;
     }

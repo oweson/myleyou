@@ -111,7 +111,8 @@ public final class CookieUtils {
 	/**
 	 * 设置Cookie的值 在指定时间内生效, 编码参数
 	 */
-	public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName, String cookieValue, int cookieMaxage, boolean isEncode) {
+	public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName,
+								 String cookieValue, int cookieMaxage, boolean isEncode) {
 		doSetCookie(request, response, cookieName, cookieValue, cookieMaxage, isEncode);
 	}
 

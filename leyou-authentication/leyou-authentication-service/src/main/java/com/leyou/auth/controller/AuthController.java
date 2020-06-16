@@ -35,7 +35,7 @@ public class AuthController {
     private JwtProperties properties;
 
     /**
-     * 登录授权
+     * 1 登录授权
      * @param username
      * @param password
      * @param request

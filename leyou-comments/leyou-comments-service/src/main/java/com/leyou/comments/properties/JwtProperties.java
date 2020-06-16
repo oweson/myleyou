@@ -13,6 +13,7 @@ import java.security.PublicKey;
 /**
  * @author: 9805
  * @create: 2018-10-27
+ * 配置中心动态刷新
  **/
 //@ConfigurationProperties(prefix = "leyou.jwt")
 @Configuration
@@ -20,23 +21,25 @@ import java.security.PublicKey;
 public class JwtProperties {
 
     /**
-     * 公钥地址
+     * 1 公钥地址
      */
     @Value("${leyou.jwt.pubKeyPath}")
     private String pubKeyPath;
 
     /**
-     * 公钥
+     * 2 公钥
      */
     private PublicKey publicKey;
-
+    /**
+     * 3 cookieName固定的名字
+     */
     @Value("${leyou.jwt.cookieName}")
     private String cookieName;
 
     private static final Logger logger = LoggerFactory.getLogger(JwtProperties.class);
 
     @PostConstruct
-    public void init(){
+    public void init() {
         try {
             // 获取公钥和私钥
             this.publicKey = RsaUtils.getPublicKey(pubKeyPath);

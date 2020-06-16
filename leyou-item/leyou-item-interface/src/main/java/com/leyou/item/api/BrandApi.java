@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("brand")
 public interface BrandApi {
     /**
-     * 根据品牌id集合，查询品牌信息
+     * 1 根据品牌id集合，查询品牌信息
      * @param ids
      * @return
      */

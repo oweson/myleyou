@@ -13,7 +13,7 @@ import org.springframework.data.domain.Page;
 public interface CommentService {
 
     /**
-     * 根据评论id查询
+     * 1 根据评论id查询
      *
      * @param id
      * @return
@@ -21,42 +21,46 @@ public interface CommentService {
     Review findOne(String id);
 
     /**
-     * 新增评论
+     * 2 新增评论
+     *
      * @param review
      * @param orderId
      * @return
      */
-    boolean add(Long orderId,Review review);
+    boolean add(Long orderId, Review review);
 
     /**
-     * 修改评论
+     * 3 修改评论
      *
      * @param review
      */
     void update(Review review);
 
     /**
-     * 删除指定评论
+     * 4 删除指定评论
      *
      * @param id
      */
     void deleteById(String id);
 
     /**
-     * 查询某一商品下的所有顶级评论
+     * 5 查询某一商品下的所有顶级评论
+     *
      * @param commentRequestParam
      * @return
      */
     Page<Review> findReviewBySpuId(CommentRequestParam commentRequestParam);
 
     /**
-     * 评论点赞
+     * 6 评论点赞
+     *
      * @param id
      */
     boolean updateThumbup(String id);
 
     /**
-     * 浏览量增1
+     * 7 浏览量增1
+     *
      * @param id
      */
     boolean updateVisits(String id);

@@ -26,12 +26,12 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     private FastFileStorageClient storageClient;
 
-    private static final Logger logger= LoggerFactory.getLogger(UploadServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UploadServiceImpl.class);
 
     /**
-     *     支持上传的文件类型
+     * 支持上传的文件类型
      */
-    private static final List<String> suffixes = Arrays.asList("image/png","image/jpeg","image/jpg");
+    private static final List<String> suffixes = Arrays.asList("image/png", "image/jpeg", "image/jpg");
 
 
     @Override
@@ -46,11 +46,13 @@ public class UploadServiceImpl implements UploadService {
          *      3)拼接图片地址
          */
         try {
+            // A 检验文件类型
             String type = file.getContentType();
             if (!suffixes.contains(type)) {
                 logger.info("上传文件失败，文件类型不匹配：{}", type);
                 return null;
             }
+            // 2 校验文件内容是否为空
             BufferedImage image = ImageIO.read(file.getInputStream());
             if (image == null) {
                 logger.info("上传失败，文件内容不符合要求");
@@ -62,20 +64,18 @@ public class UploadServiceImpl implements UploadService {
 //                dir.mkdirs();
 //            }
 //            file.transferTo(new File(dir, Objects.requireNonNull(file.getOriginalFilename())));
-
             StorePath storePath = this.storageClient.uploadFile(
-                  file.getInputStream(), file.getSize(), getExtension(file.getOriginalFilename()), null);
+                    file.getInputStream(), file.getSize(), getExtension(file.getOriginalFilename()), null);
 
             //String url = "http://image.leyou.com/upload/"+file.getOriginalFilename();
-            String url = "http://image.leyou.com/"+storePath.getFullPath();
-//            System.out.println(url);
+            String url = "http://image.leyou.com/" + storePath.getFullPath();
             return url;
-        }catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public String getExtension(String fileName){
-        return StringUtils.substringAfterLast(fileName,".");
+    public String getExtension(String fileName) {
+        return StringUtils.substringAfterLast(fileName, ".");
     }
 }

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Queue;
 
 /**
  * @Author: 98050
@@ -44,9 +45,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Review findOne(String id) {
+        return commentDao.findById(id).orElse(null);
         //判断空
-        Optional<Review> optional = commentDao.findById(id);
-        return optional.orElse(null);
+//        Optional<Review> optional = commentDao.findById(id);
+//        return optional.orElse(null);
     }
 
     /**
@@ -117,13 +119,18 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
-     * 查询某一商品下的所有顶级评论
+     * 1 查询某一商品下的所有顶级评论
      * @param commentRequestParam
      * @return
      */
     @Override
     public Page<Review> findReviewBySpuId(CommentRequestParam commentRequestParam) {
         PageRequest pageRequest = PageRequest.of(commentRequestParam.getPage()-1, commentRequestParam.getDefaultSize());
+        return this.commentDao.findReviewBySpuid(commentRequestParam.getSpuId()+"",pageRequest);
+    }
+
+    public Page<Review> findReviewBySpuId02(CommentRequestParam commentRequestParam){
+        PageRequest pageRequest = new PageRequest(commentRequestParam.getPage()-1, commentRequestParam.getDefaultSize());
         return this.commentDao.findReviewBySpuid(commentRequestParam.getSpuId()+"",pageRequest);
     }
 
@@ -153,6 +160,17 @@ public class CommentServiceImpl implements CommentService {
         update.inc("visits",1);
         UpdateResult result = this.mongoTemplate.updateFirst(query,update,"review");
         return result.isModifiedCountAvailable();
+    }
+    // 访问量是mongodb处理的
+
+    public  boolean updateVisits02(String id){
+        Query queue = new Query();
+        queue.addCriteria(Criteria.where("_id").is(id));
+        Update update = new Update();
+        update.inc("visits",1);
+        UpdateResult updateResult = this.mongoTemplate.updateFirst(queue, update, "review");
+        return updateResult.isModifiedCountAvailable();
+
     }
 }
 

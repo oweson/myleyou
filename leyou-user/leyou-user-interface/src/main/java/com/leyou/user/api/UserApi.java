@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 public interface UserApi {
     /**
-     * 用户验证
+     * 1 用户验证
      * @param username
      * @param password
      * @return
