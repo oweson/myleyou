@@ -13,6 +13,7 @@ public class SpuQueryByPageParameter extends BrandQueryByPageParameter{
      *         - desc：是否为降序，boolean
      *         - key：搜索关键词，String
      *         - saleable: 是否上下架
+     *
      */
     private Boolean saleable;
 

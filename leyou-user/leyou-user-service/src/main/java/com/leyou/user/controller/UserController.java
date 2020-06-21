@@ -23,7 +23,7 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 用户数据检查
+     * 1 用户数据检查
      * @param data
      * @param type
      * @return
@@ -38,7 +38,7 @@ public class UserController {
     }
 
     /**
-     * 发送短信验证码
+     * 2 发送短信验证码
      * @param phone
      * @return
      */
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     /**
-     * 注册
+     * 3 注册
      * @param user
      * @param code
      * @return
@@ -68,7 +68,7 @@ public class UserController {
 
 
     /**
-     * 用户验证
+     *  4 用户验证
      * @param username
      * @param password
      * @return

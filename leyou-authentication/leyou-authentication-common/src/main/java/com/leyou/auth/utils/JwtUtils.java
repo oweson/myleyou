@@ -16,7 +16,7 @@ import java.security.PublicKey;
  **/
 public class JwtUtils {
     /**
-     * 私钥加密token
+     * 1 私钥加密token
      *
      * @param userInfo      载荷中的数据
      * @param privateKey    私钥
@@ -34,7 +34,7 @@ public class JwtUtils {
     }
 
     /**
-     * 私钥加密token
+     * 2 私钥加密token
      *
      * @param userInfo      载荷中的数据
      * @param privateKey    私钥字节数组
@@ -52,7 +52,7 @@ public class JwtUtils {
     }
 
     /**
-     * 公钥解析token
+     * 3 公钥解析token
      *
      * @param token     用户请求中的token
      * @param publicKey 公钥
@@ -64,7 +64,7 @@ public class JwtUtils {
     }
 
     /**
-     * 公钥解析token
+     * 4 公钥解析token
      *
      * @param token     用户请求中的token
      * @param publicKey 公钥字节数组
@@ -77,7 +77,7 @@ public class JwtUtils {
     }
 
     /**
-     * 获取token中的用户信息
+     * 5 获取token中的用户信息
      *
      * @param token     用户请求中的令牌
      * @param publicKey 公钥
@@ -87,6 +87,7 @@ public class JwtUtils {
     public static UserInfo getInfoFromToken(String token, PublicKey publicKey) throws Exception {
         Jws<Claims> claimsJws = parserToken(token, publicKey);
         Claims body = claimsJws.getBody();
+        // long:id,String:name
         return new UserInfo(
                 ObjectUtils.toLong(body.get(JwtConstans.JWT_KEY_ID)),
                 ObjectUtils.toString(body.get(JwtConstans.JWT_KEY_USER_NAME))
@@ -94,7 +95,7 @@ public class JwtUtils {
     }
 
     /**
-     * 获取token中的用户信息
+     * 6 获取token中的用户信息
      *
      * @param token     用户请求中的令牌
      * @param publicKey 公钥

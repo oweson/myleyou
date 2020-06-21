@@ -37,7 +37,8 @@ public class Sku {
     private Date lastUpdateTime;
     @Transient
     /**
-     * @Transient 表示该属性并非一个到数据库表的字段的映射,ORM框架将忽略该属性.
+     * @Transient
+     * 表示该属性并非一个到数据库表的字段的映射,ORM框架将忽略该属性.
      */
     private Long stock;
 

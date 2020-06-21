@@ -15,8 +15,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 public interface CommentDao extends MongoRepository<Review,String> {
 
     /**
-     * 分页查询
-     * @param spuId
+     * 1 分页查询
+     * @param spuId  华为手机，具体的型号不过是他的子集合
      * @param pageable
      * @return
      */

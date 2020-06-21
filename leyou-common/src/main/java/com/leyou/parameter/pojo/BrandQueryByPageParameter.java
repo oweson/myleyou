@@ -4,6 +4,7 @@ package com.leyou.parameter.pojo;
  * @Author: 98050
  * Time: 2018-08-08 11:38
  * Feature:
+ * 品牌查询参数传递通用类
  */
 public class BrandQueryByPageParameter {
 
@@ -69,7 +70,7 @@ public class BrandQueryByPageParameter {
         this.key = key;
     }
 
-    public BrandQueryByPageParameter(){
+    public BrandQueryByPageParameter() {
         super();
     }
 

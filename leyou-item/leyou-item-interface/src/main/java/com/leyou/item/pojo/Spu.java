@@ -16,7 +16,7 @@ public class Spu {
     private Long id;
     private Long brandId;
     /**
-     * 1级类目
+     * 1 级类目
      */
     private Long cid1;
     /**

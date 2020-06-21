@@ -16,12 +16,23 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Bean
     public FilterRegistrationBean someFilterRegistration1() {
-        //新建过滤器注册类
+        // 1 新建过滤器注册类
         FilterRegistrationBean registration = new FilterRegistrationBean();
-        // 添加我们写好的过滤器
-        registration.setFilter( new MyFilter());
-        // 设置过滤器的URL模式
+        // 2 添加我们写好的过滤器
+        registration.setFilter(new MyFilter());
+        // 3 设置过滤器的URL模式
         registration.addUrlPatterns("/*");
         return registration;
     }
+
+//    class ppx implements WebMvcConfigurer {
+//        @Bean
+//        public FilterRegistrationBean youknow() {
+//            FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
+//            filterRegistrationBean.setFilter(new MyFilter());
+//            filterRegistrationBean.addUrlPatterns("/*");
+//            return filterRegistrationBean;
+//        }
+//
+//    }
 }

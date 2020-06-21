@@ -3,21 +3,21 @@ package com.leyou.common.pojo;
 import java.util.List;
 
 /**
+ * @param <T> 分页通用类
  * @author li
- * @param <T>
  */
 public class PageResult<T> {
 
     /**
-     * 总条数
+     * 1 总条数
      */
     private Long total;
     /**
-     * 总页数
+     * 2 总页数
      */
     private Long totalPage;
     /**
-     * 当前页数据
+     * 3 当前页数据
      */
     private List<T> items;
 

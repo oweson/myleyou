@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 /**
- * @author 98050
+ * @author
+ * SpringCloud Config配置WebHooks，请求反序列化异常问题
+ * github默认会传递很多的消息，没有的springboot又无法处理，包装起传递request请求；
  */
 public class CustometRequestWrapper extends HttpServletRequestWrapper {
         public CustometRequestWrapper(HttpServletRequest request) {

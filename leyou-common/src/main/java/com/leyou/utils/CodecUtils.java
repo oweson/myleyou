@@ -9,12 +9,26 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  */
 public class CodecUtils {
 
-    public static String passwordBcryptEncode(String username,String password){
+    public static String passwordBcryptEncode(String username, String password) {
 
         return new BCryptPasswordEncoder().encode(username + password);
     }
 
-    public static Boolean passwordConfirm(String rawPassword,String encodePassword){
-        return new BCryptPasswordEncoder().matches(rawPassword,encodePassword);
+    public static Boolean passwordConfirm(String rawPassword, String encodePassword) {
+        return new BCryptPasswordEncoder().matches(rawPassword, encodePassword);
+    }
+
+    /**
+     * 1 密码加密工具类
+     */
+    public static String passwordAndUserNmaeEncode(String userName, String passsword) {
+        return new BCryptPasswordEncoder().encode(userName + passsword);
+    }
+
+    /**
+     * 2 新旧密码确认工具类
+     */
+    public static Boolean confirmPasword(String oldPassword, String newPassword) {
+        return new BCryptPasswordEncoder().matches(oldPassword, newPassword);
     }
 }

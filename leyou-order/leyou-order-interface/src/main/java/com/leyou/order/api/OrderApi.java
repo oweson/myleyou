@@ -16,7 +16,8 @@ import java.util.List;
 public interface OrderApi {
 
     /**
-     * 创建订单
+     * 1 创建订单
+     *
      * @param seck
      * @param order
      * @return
@@ -26,11 +27,12 @@ public interface OrderApi {
 
 
     /**
-     * 修改订单状态
+     * 2 修改订单状态
+     *
      * @param id
      * @param status
      * @return
      */
     @PutMapping("{id}/{status}")
-    ResponseEntity<Boolean> updateOrderStatus(@PathVariable("id") Long id,@PathVariable("status") Integer status);
+    ResponseEntity<Boolean> updateOrderStatus(@PathVariable("id") Long id, @PathVariable("status") Integer status);
 }

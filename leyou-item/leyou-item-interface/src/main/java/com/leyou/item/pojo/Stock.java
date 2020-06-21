@@ -8,19 +8,21 @@ import javax.persistence.Table;
  */
 @Table(name = "tb_stock")
 public class Stock {
-
+    /**
+     * 0 主键id
+     */
     @Id
     private Long skuId;
     /**
-     * 秒杀可用库存
+     * 1 秒杀可用库存
      */
     private Integer seckillStock;
     /**
-     * 已秒杀数量
+     * 2 已秒杀数量
      */
     private Integer seckillTotal;
     /**
-     * 正常库存
+     * 3 正常库存
      */
     private Long stock;
 

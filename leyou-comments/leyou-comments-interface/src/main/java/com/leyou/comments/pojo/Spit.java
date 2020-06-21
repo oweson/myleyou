@@ -5,15 +5,19 @@ package com.leyou.comments.pojo;
  * @Time: 2018-11-26 16:46
  * @Feature:
  */
+
+/**
+ * 访问服务类
+ */
 public class Spit {
     private String _id;
 
     private String content;
-
+   // 谁评论的
     private String userid;
 
     private String nickname;
-
+  // 评论的访客
     private Integer visits;
 
     public String get_id() {

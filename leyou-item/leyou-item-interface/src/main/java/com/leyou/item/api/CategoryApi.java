@@ -27,7 +27,6 @@ public interface CategoryApi {
 
     /**
      * 2 根据分类id集合查询分类名对象集合
-     *
      * @param ids
      * @return
      */

@@ -21,6 +21,9 @@ public class JsonUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 
+    /**
+     * 1 对象转化为json
+     */
     @Nullable
     public static String serialize(Object obj) {
         if (obj == null) {
@@ -37,6 +40,9 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * 2 json转化为对象
+     */
     @Nullable
     public static <T> T parse(String json, Class<T> tClass) {
         try {
@@ -47,6 +53,9 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * 3 解析json数据为集合对象
+     */
     @Nullable
     public static <E> List<E> parseList(String json, Class<E> eClass) {
         try {
@@ -57,6 +66,9 @@ public class JsonUtils {
         }
     }
 
+    /**
+     * 4 解析json为map对象
+     */
     @Nullable
     public static <K, V> Map<K, V> parseMap(String json, Class<K> kClass, Class<V> vClass) {
         try {
