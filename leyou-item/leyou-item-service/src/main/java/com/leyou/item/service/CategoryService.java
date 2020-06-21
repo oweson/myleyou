@@ -13,27 +13,27 @@ import java.util.List;
 public interface CategoryService {
 
     /**
-     * 根据id查询分类
+     * 1 根据id查询分类
      * @param pid
      * @return
      */
     List<Category> queryCategoryByPid(Long pid) throws MyException;
 
     /**
-     * 根据brand id查询分类信息
+     * 2 根据brand id查询分类信息
      * @param bid
      * @return
      */
     List<Category> queryByBrandId(Long bid);
 
     /**
-     * 保存
+     * 3 保存
      * @param category
      */
     void saveCategory(Category category);
 
     /**
-     * 更新
+     * 4 更新
      * @param category
      */
     void updateCategory(Category category);
