@@ -23,7 +23,8 @@ public class BrandController {
     private BrandService brandService;
 
     /**
-     * 分页查询品牌
+     * 1 分页查询品牌
+     *
      * @param page
      * @param rows
      * @param sortBy
@@ -36,46 +37,52 @@ public class BrandController {
                                                               @RequestParam(value = "rows", defaultValue = "5") Integer rows,
                                                               @RequestParam(value = "sortBy", required = false) String sortBy,
                                                               @RequestParam(value = "desc", defaultValue = "false") Boolean desc,
-                                                              @RequestParam(value = "key", required = false) String key){
-        BrandQueryByPageParameter brandQueryByPageParameter=new BrandQueryByPageParameter(page,rows,sortBy,desc,key);
+                                                              @RequestParam(value = "key", required = false) String key) {
+        BrandQueryByPageParameter brandQueryByPageParameter = new BrandQueryByPageParameter(page, rows, sortBy, desc, key);
         PageResult<Brand> result = this.brandService.queryBrandByPage(brandQueryByPageParameter);
-        if(result == null){
+        if (result == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
         return ResponseEntity.ok(result);
     }
 
     /**
-     * 品牌新增
+     * 2 品牌新增
+     * ok!
+     *
      * @param brand
      * @param categories
      * @return
      */
     @PostMapping
-    public ResponseEntity<Void>  saveBrand(Brand brand, @RequestParam("categories") List<Long> categories){
+    public ResponseEntity<Void> saveBrand(Brand brand, @RequestParam("categories") List<Long> categories) {
         this.brandService.saveBrand(brand, categories);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     /**
-     * 品牌修改
+     * 3 品牌修改
+     * ok!
+     *
      * @param brand
      * @param categories
      * @return
      */
     @PutMapping
-    public ResponseEntity<Void> updateBrand(Brand brand,@RequestParam("categories") List<Long> categories){
-        this.brandService.updateBrand(brand,categories);
-        return  ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    public ResponseEntity<Void> updateBrand(Brand brand, @RequestParam("categories") List<Long> categories) {
+        this.brandService.updateBrand(brand, categories);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
     /**
-     * 删除tb_category_brand中的数据
+     * 4 删除品牌信息
+     * todo 仅仅删除tb_category_brand中的数据，意义何在？
+     *
      * @param bid
      * @return
      */
     @DeleteMapping("cid_bid/{bid}")
-    public ResponseEntity<Void> deleteByBrandIdInCategoryBrand(@PathVariable("bid") Long bid){
+    public ResponseEntity<Void> deleteByBrandIdInCategoryBrand(@PathVariable("bid") Long bid) {
         //System.out.println("删除中间表");
         this.brandService.deleteByBrandIdInCategoryBrand(bid);
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -83,48 +90,50 @@ public class BrandController {
 
 
     /**
-     * 删除tb_brand中的数据,单个删除、多个删除二合一
+     * 5 删除tb_brand中的数据,单个删除、多个删除二合一
+     * ok!
      * @param bid
      * @return
      */
     @DeleteMapping("bid/{bid}")
-    public ResponseEntity<Void> deleteBrand(@PathVariable("bid") String bid){
-        String separator="-";
-        if(bid.contains(separator)){
-            String[] ids=bid.split(separator);
-            for (String id:ids){
+    public ResponseEntity<Void> deleteBrand(@PathVariable("bid") String bid) {
+        String separator = "-";
+        if (bid.contains(separator)) {
+            String[] ids = bid.split(separator);
+            for (String id : ids) {
                 this.brandService.deleteBrand(Long.parseLong(id));
             }
-        }
-        else {
+        } else {
             this.brandService.deleteBrand(Long.parseLong(bid));
         }
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     /**
-     * 根据category的id查询品牌信息
+     * 6 根据category的id查询品牌信息
+     * ok!
      * @param cid
      * @return
      */
     @GetMapping("cid/{cid}")
-    public ResponseEntity<List<Brand>> queryBrandByCategoryId(@PathVariable("cid") Long cid){
+    public ResponseEntity<List<Brand>> queryBrandByCategoryId(@PathVariable("cid") Long cid) {
         List<Brand> list = this.brandService.queryBrandByCategoryId(cid);
-        if (list == null){
+        if (list == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(list);
     }
 
     /**
-     * 根据品牌id结合，查询品牌信息
+     * 7 根据品牌id结合，查询品牌信息
+     * ok!
      * @param ids
      * @return
      */
     @GetMapping("list")
-    public ResponseEntity<List<Brand>> queryBrandByIds(@RequestParam("ids") List<Long> ids){
+    public ResponseEntity<List<Brand>> queryBrandByIds(@RequestParam("ids") List<Long> ids) {
         List<Brand> list = this.brandService.queryBrandByBrandIds(ids);
-        if (list == null){
+        if (list == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(list);

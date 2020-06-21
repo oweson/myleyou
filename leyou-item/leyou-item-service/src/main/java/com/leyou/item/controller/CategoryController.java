@@ -45,7 +45,8 @@ public class CategoryController {
     }
 
     /**
-     * 2 用于修改品牌信息时，商品分类信息的回显
+     * 2 用于修改品牌信息时，商品分类信息的回显，下拉框
+     * ok!
      *
      * @param bid
      * @return
@@ -62,6 +63,7 @@ public class CategoryController {
 
     /**
      * 3 保存
+     * todo
      *
      * @return
      */
@@ -73,6 +75,7 @@ public class CategoryController {
 
     /**
      * 4 更新
+     * ok!
      *
      * @return
      */
@@ -84,6 +87,7 @@ public class CategoryController {
 
     /**
      * 5 删除
+     * todo
      *
      * @return
      */
@@ -95,6 +99,7 @@ public class CategoryController {
 
     /**
      * 6 根据分类id集合查询分类名称
+     * ok!
      *
      * @param ids
      * @return
@@ -110,7 +115,8 @@ public class CategoryController {
     }
 
     /**
-     * 7 根据分类id集合查询分类名称
+     * 7 根据分类id集合查询分类集合
+     * ok!
      *
      * @param ids
      * @return
@@ -126,8 +132,9 @@ public class CategoryController {
     }
 
     /**
-     * 8 根据分类id集合查询分类名称
-     *
+     * 8 根据单个分类id集合查询分类集合，一级分类！
+     * ok!
+     * todo 还不错！！！
      * @param id
      * @return
      */

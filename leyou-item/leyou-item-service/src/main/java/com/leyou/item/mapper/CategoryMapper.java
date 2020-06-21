@@ -15,10 +15,11 @@ import java.util.List;
  * @Feature:
  */
 @org.apache.ibatis.annotations.Mapper
-public interface CategoryMapper extends Mapper<Category>, SelectByIdListMapper<Category,Long> {
+public interface CategoryMapper extends Mapper<Category>, SelectByIdListMapper<Category, Long> {
 
     /**
-     * 根据品牌id查询商品分类
+     * 1 根据品牌id查询商品分类
+     *
      * @param bid
      * @return
      */
@@ -27,14 +28,16 @@ public interface CategoryMapper extends Mapper<Category>, SelectByIdListMapper<C
 
 
     /**
-     * 根据category id删除中间表相关数据
+     * 2 根据category id删除中间表相关数据
+     *
      * @param cid
      */
     @Delete("DELETE FROM tb_category_brand WHERE category_id = #{cid}")
     void deleteByCategoryIdInCategoryBrand(@Param("cid") Long cid);
 
     /**
-     * 根据id查名字
+     * 3 根据id查名字
+     *
      * @param id
      * @return
      */
@@ -42,7 +45,8 @@ public interface CategoryMapper extends Mapper<Category>, SelectByIdListMapper<C
     String queryNameById(Long id);
 
     /**
-     * 查询最后一条数据
+     * 4 查询最后一条数据
+     *
      * @return
      */
     @Select("SELECT * FROM `tb_category` WHERE id = (SELECT MAX(id) FROM tb_category)")
