@@ -13,6 +13,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: 98050
@@ -27,23 +28,25 @@ public class CategoryServiceImpl implements CategoryService {
 
 
     /**
-     * 根据父节点id查询分类
+     * 1 根据父节点id查询分类
+     *
      * @param pid
      * @return
      */
     @Override
     public List<Category> queryCategoryByPid(Long pid) throws MyException {
         Example example = new Example(Category.class);
-        example.createCriteria().andEqualTo("parentId",pid);
+        example.createCriteria().andEqualTo("parentId", pid);
         List<Category> list = this.categoryMapper.selectByExample(example);
-        if (CollectionUtils.isEmpty(list)){
+        if (CollectionUtils.isEmpty(list)) {
             throw new MyException(LyException.CATEGORY_NOT_FOUND);
         }
         return list;
     }
 
     /**
-     * 根据品牌id查询分类
+     * 2 根据品牌id查询分类
+     *
      * @param bid
      * @return
      */
@@ -52,18 +55,20 @@ public class CategoryServiceImpl implements CategoryService {
         return this.categoryMapper.queryByBrandId(bid);
     }
 
+    /**
+     * 3 新增分类
+     */
     @Override
     public void saveCategory(Category category) {
         /**
          * 将本节点插入到数据库中
          * 将此category的父节点的isParent设为true
          */
-
         //1.首先置id为null
         category.setId(null);
         //2.保存
         this.categoryMapper.insert(category);
-        //3.修改父节点
+        //3.todo 修改父节点???
         Category parent = new Category();
         parent.setId(category.getParentId());
         parent.setIsParent(true);
@@ -72,7 +77,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     * 更新
+     * 4 更新
+     * ok!
      * @param category
      */
     @Override
@@ -80,47 +86,50 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryMapper.updateByPrimaryKeySelective(category);
     }
 
+    /**
+     * 5 删除分类
+     */
     @Override
     public void deleteCategory(Long id) {
         /**
          * 先根据id查询要删除的对象，然后进行判断
          * 如果是父节点，那么删除所有附带子节点,然后维护中间表
-         * 如果是子节点，那么只删除自己,然后判断父节点孩子的个数，如果孩子不为0，则不做修改；如果孩子个数为0，则修改父节点isParent
+         * 如果是子节点，那么只删除自己,然后判断父节点孩子的个数，如果孩子不为0，则不做修改；
+         * 如果孩子个数为0，则修改父节点isParent
          * 的值为false,最后维护中间表
          */
-        Category category=this.categoryMapper.selectByPrimaryKey(id);
-        if(category.getIsParent()){
-            //1.查找所有叶子节点
+        Category category = this.categoryMapper.selectByPrimaryKey(id);
+        if (category.getIsParent()) {
+            //1.是父节点，查找所有叶子节点
             List<Category> list = new ArrayList<>();
-            queryAllLeafNode(category,list);
+            queryAllLeafNode(category, list);
 
             //2.查找所有子节点
             List<Category> list2 = new ArrayList<>();
-            queryAllNode(category,list2);
+            queryAllNode(category, list2);
 
             //3.删除tb_category中的数据,使用list2
-            for (Category c:list2){
+            for (Category c : list2) {
                 this.categoryMapper.delete(c);
             }
 
             //4.维护中间表
-            for (Category c:list){
+            for (Category c : list) {
                 this.categoryMapper.deleteByCategoryIdInCategoryBrand(c.getId());
             }
 
-        }else {
+        } else {
             //1.查询此节点的父亲节点的孩子个数 ===> 查询还有几个兄弟
             Example example = new Example(Category.class);
-            example.createCriteria().andEqualTo("parentId",category.getParentId());
-            List<Category> list=this.categoryMapper.selectByExample(example);
-            if(list.size()!=1){
+            example.createCriteria().andEqualTo("parentId", category.getParentId());
+            List<Category> list = this.categoryMapper.selectByExample(example);
+            if (list.size() != 1) {
                 //有兄弟,直接删除自己
                 this.categoryMapper.deleteByPrimaryKey(category.getId());
 
                 //维护中间表
                 this.categoryMapper.deleteByCategoryIdInCategoryBrand(category.getId());
-            }
-            else {
+            } else {
                 //已经没有兄弟了
                 this.categoryMapper.deleteByPrimaryKey(category.getId());
 
@@ -135,35 +144,38 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     * 根据ids查询名字
+     * 6 根据ids查询名字
+     *
      * @param asList
      * @return
      */
     @Override
     public List<String> queryNameByIds(List<Long> asList) {
         List<String> names = new ArrayList<>();
-        if (asList != null && asList.size() !=0){
+        if (asList != null && asList.size() != 0) {
             for (Long id : asList) {
                 names.add(this.categoryMapper.queryNameById(id));
             }
         }
         return names;
-        //使用通用mapper接口中的SelectByIdListMapper接口查询
-        //return this.categoryMapper.selectByIdList(asList).stream().map(Category::getName).collect(Collectors.toList());
+// return this.categoryMapper.selectByIdList(asList).stream().map(Category::getName).collect(Collectors.toList());
+        //lambda:使用通用mapper接口中的SelectByIdListMapper接口查询
     }
 
     /**
-     * 查询数据库中最后一条数据
+     * 7 查询数据库中最后一条数据
+     *
      * @return
      */
     @Override
     public List<Category> queryLast() {
-        List<Category> last =this.categoryMapper.selectLast();
+        List<Category> last = this.categoryMapper.selectLast();
         return last;
     }
 
     /**
-     * 根据分类id集合查询分类信息
+     * 8 根据分类id集合查询分类信息
+     *
      * @param ids
      * @return
      */
@@ -173,7 +185,10 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     * 根据cid3查询其所有层级分类
+     * 9 根据cid3查询其所有层级分类
+     * A: 1
+     * B:1,2
+     * C:1,2,3
      * @param id
      * @return
      */
@@ -181,7 +196,8 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> queryAllCategoryLevelByCid3(Long id) {
         List<Category> categoryList = new ArrayList<>();
         Category category = this.categoryMapper.selectByPrimaryKey(id);
-        while (category.getParentId() != 0){
+        while (category.getParentId() != 0) {
+            // 不等于0就不是一级分类
             categoryList.add(category);
             category = this.categoryMapper.selectByPrimaryKey(category.getParentId());
         }
@@ -190,37 +206,39 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     /**
-     * 查询本节点下所包含的所有叶子节点，用于维护tb_category_brand中间表
+     * 10 查询本节点下所包含的所有叶子节点，用于维护tb_category_brand中间表
+     *
      * @param category
      * @param leafNode
      */
-    private void queryAllLeafNode(Category category,List<Category> leafNode){
-        if(!category.getIsParent()){
+    private void queryAllLeafNode(Category category, List<Category> leafNode) {
+        if (!category.getIsParent()) {
             leafNode.add(category);
         }
         Example example = new Example(Category.class);
-        example.createCriteria().andEqualTo("parentId",category.getId());
-        List<Category> list=this.categoryMapper.selectByExample(example);
+        example.createCriteria().andEqualTo("parentId", category.getId());
+        List<Category> list = this.categoryMapper.selectByExample(example);
 
-        for (Category category1:list){
-            queryAllLeafNode(category1,leafNode);
+        for (Category category1 : list) {
+            queryAllLeafNode(category1, leafNode);
         }
     }
 
     /**
-     * 查询本节点下所有子节点
+     * 11 查询本节点下所有子节点
+     *
      * @param category
      * @param node
      */
-    private void queryAllNode(Category category,List<Category> node){
+    private void queryAllNode(Category category, List<Category> node) {
 
         node.add(category);
         Example example = new Example(Category.class);
-        example.createCriteria().andEqualTo("parentId",category.getId());
-        List<Category> list=this.categoryMapper.selectByExample(example);
+        example.createCriteria().andEqualTo("parentId", category.getId());
+        List<Category> list = this.categoryMapper.selectByExample(example);
 
-        for (Category category1:list){
-            queryAllNode(category1,node);
+        for (Category category1 : list) {
+            queryAllNode(category1, node);
         }
     }
 

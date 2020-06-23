@@ -27,7 +27,8 @@ public class BrandServiceImpl implements BrandService {
     private BrandMapper brandMapper;
 
     /**
-     * 分页查询
+     * 1 分页查询
+     *
      * @param brandQueryByPageParameter
      * @return
      */
@@ -37,22 +38,22 @@ public class BrandServiceImpl implements BrandService {
         /**
          * 1.分页
          */
-        PageHelper.startPage(brandQueryByPageParameter.getPage(),brandQueryByPageParameter.getRows());
+        PageHelper.startPage(brandQueryByPageParameter.getPage(), brandQueryByPageParameter.getRows());
 
         /**
          *  2.排序
          */
         Example example = new Example(Brand.class);
-        if (StringUtils.isNotBlank(brandQueryByPageParameter.getSortBy())){
-            example.setOrderByClause(brandQueryByPageParameter.getSortBy()+(brandQueryByPageParameter.getDesc()? " DESC":" ASC"));
+        if (StringUtils.isNotBlank(brandQueryByPageParameter.getSortBy())) {
+            example.setOrderByClause(brandQueryByPageParameter.getSortBy() + (brandQueryByPageParameter.getDesc() ? " DESC" : " ASC"));
         }
         /**
          * 3.查询
          */
-        if(StringUtils.isNotBlank(brandQueryByPageParameter.getKey())) {
-            example.createCriteria().orLike("name", brandQueryByPageParameter.getKey()+"%").orEqualTo("letter", brandQueryByPageParameter.getKey().toUpperCase());
+        if (StringUtils.isNotBlank(brandQueryByPageParameter.getKey())) {
+            example.createCriteria().orLike("name", brandQueryByPageParameter.getKey() + "%").orEqualTo("letter", brandQueryByPageParameter.getKey().toUpperCase());
         }
-        List<Brand> list=this.brandMapper.selectByExample(example);
+        List<Brand> list = this.brandMapper.selectByExample(example);
 
         /**
          * 4.创建PageInfo
@@ -61,11 +62,12 @@ public class BrandServiceImpl implements BrandService {
         /**
          * 5.返回分页结果
          */
-        return new PageResult<>(pageInfo.getTotal(),pageInfo.getList());
+        return new PageResult<>(pageInfo.getTotal(), pageInfo.getList());
     }
 
     /**
-     * 品牌新增
+     * 2 品牌新增
+     *
      * @param brand
      * @param categories
      */
@@ -73,29 +75,30 @@ public class BrandServiceImpl implements BrandService {
     @Transactional(rollbackFor = Exception.class)
     public void saveBrand(Brand brand, List<Long> categories) {
         //System.out.println(brand);
-        // 新增品牌信息
+        //  1 新增品牌信息
         this.brandMapper.insertSelective(brand);
-        // 新增品牌和分类中间表
+        //  2 新增品牌和分类中间表，一个品牌属于多个分类！
         for (Long cid : categories) {
             this.brandMapper.insertCategoryBrand(cid, brand.getId());
         }
     }
 
     /**
-     * 品牌更新
+     * 3 品牌更新
+     *
      * @param brand
      * @param categories
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updateBrand(Brand brand,List<Long> categories) {
-        //删除原来的数据
+    public void updateBrand(Brand brand, List<Long> categories) {
+        // todo 删除原来的数据?  是中间表的数据！
         deleteByBrandIdInCategoryBrand(brand.getId());
 
         // 修改品牌信息
         this.brandMapper.updateByPrimaryKeySelective(brand);
 
-        //维护品牌和分类中间表
+        //维护品牌和分类中间表，新的插入！
         for (Long cid : categories) {
             //System.out.println("cid:"+cid+",bid:"+brand.getId());
             this.brandMapper.insertCategoryBrand(cid, brand.getId());
@@ -103,7 +106,8 @@ public class BrandServiceImpl implements BrandService {
     }
 
     /**
-     * 品牌删除
+     * 4 品牌删除
+     *
      * @param id
      */
     @Override
@@ -118,7 +122,8 @@ public class BrandServiceImpl implements BrandService {
 
 
     /**
-     * 删除中间表中的数据
+     * 5  删除中间表中的数据
+     *
      * @param bid
      */
     @Override
@@ -127,7 +132,8 @@ public class BrandServiceImpl implements BrandService {
     }
 
     /**
-     * 根据category id查询brand
+     * 6 根据category id查询brand
+     *
      * @param cid
      * @return
      */
@@ -138,7 +144,8 @@ public class BrandServiceImpl implements BrandService {
     }
 
     /**
-     * 根据品牌id集合查询品牌信息
+     * 7 根据品牌id集合查询品牌信息
+     *
      * @param ids
      * @return
      */

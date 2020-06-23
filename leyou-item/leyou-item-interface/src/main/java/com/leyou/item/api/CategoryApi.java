@@ -26,8 +26,7 @@ public interface CategoryApi {
     ResponseEntity<List<String>> queryNameByIds(@RequestParam("ids") List<Long> ids);
 
     /**
-     * 2 根据分类id集合查询分类名称
-     *
+     * 2 根据分类id集合查询分类名对象集合
      * @param ids
      * @return
      */
