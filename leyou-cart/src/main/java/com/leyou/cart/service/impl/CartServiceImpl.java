@@ -43,7 +43,8 @@ public class CartServiceImpl implements CartService {
     private final Logger logger = LoggerFactory.getLogger(CartServiceImpl.class);
 
     /**
-     * 添加购物车
+     * 1 添加购物车
+     *
      * @param cart
      */
     @Override
@@ -55,33 +56,34 @@ public class CartServiceImpl implements CartService {
         //2.Redis的key
         String key = KEY_PREFIX + userInfo.getId();
         //3.获取hash操作对象
-        BoundHashOperations<String,Object,Object> hashOperations = this.stringRedisTemplate.boundHashOps(key);
+        BoundHashOperations<String, Object, Object> hashOperations = this.stringRedisTemplate.boundHashOps(key);
         //4.查询是否存在
         Long skuId = cart.getSkuId();
         Integer num = cart.getNum();
         Boolean result = hashOperations.hasKey(skuId.toString());
-        if (result){
+        if (result) {
             //5.存在，获取购物车数据
             String json = hashOperations.get(skuId.toString()).toString();
-            cart = JsonUtils.parse(json,Cart.class);
+            cart = JsonUtils.parse(json, Cart.class);
             //6.修改购物车数量
             cart.setNum(cart.getNum() + num);
-        }else{
+        } else {
             //7.不存在，新增购物车数据
             cart.setUserId(userInfo.getId());
             //8.其他商品信息，需要查询商品微服务
             Sku sku = this.goodsClient.querySkuById(skuId);
-            cart.setImage(StringUtils.isBlank(sku.getImages()) ? "" : StringUtils.split(sku.getImages(),",")[0]);
+            cart.setImage(StringUtils.isBlank(sku.getImages()) ? "" : StringUtils.split(sku.getImages(), ",")[0]);
             cart.setPrice(sku.getPrice());
             cart.setTitle(sku.getTitle());
             cart.setOwnSpec(sku.getOwnSpec());
         }
         //9.将购物车数据写入redis
-        hashOperations.put(cart.getSkuId().toString(),JsonUtils.serialize(cart));
+        hashOperations.put(cart.getSkuId().toString(), JsonUtils.serialize(cart));
     }
 
     /**
-     * 查询购物车
+     * 2 查询用户所有的购物车商品数据信息；
+     *
      * @return
      */
     @Override
@@ -94,18 +96,19 @@ public class CartServiceImpl implements CartService {
             //3.不存在直接返回
             return null;
         }
-        BoundHashOperations<String,Object,Object> hashOperations = this.stringRedisTemplate.boundHashOps(key);
+        BoundHashOperations<String, Object, Object> hashOperations = this.stringRedisTemplate.boundHashOps(key);
         List<Object> carts = hashOperations.values();
         //4.判断是否有数据
-        if (CollectionUtils.isEmpty(carts)){
+        if (CollectionUtils.isEmpty(carts)) {
             return null;
         }
         //5.查询购物车数据
-        return carts.stream().map( o -> JsonUtils.parse(o.toString(),Cart.class)).collect(Collectors.toList());
+        return carts.stream().map(o -> JsonUtils.parse(o.toString(), Cart.class)).collect(Collectors.toList());
     }
 
     /**
-     * 更新购物车中商品数量
+     * 3 更新购物车中商品数量
+     *
      * @param skuId
      * @param num
      */
@@ -114,17 +117,18 @@ public class CartServiceImpl implements CartService {
         //1.获取登录用户
         UserInfo userInfo = LoginInterceptor.getLoginUser();
         String key = KEY_PREFIX + userInfo.getId();
-        BoundHashOperations<String,Object,Object> hashOperations = this.stringRedisTemplate.boundHashOps(key);
+        BoundHashOperations<String, Object, Object> hashOperations = this.stringRedisTemplate.boundHashOps(key);
         //2.获取购物车
         String json = hashOperations.get(skuId.toString()).toString();
-        Cart cart = JsonUtils.parse(json,Cart.class);
+        Cart cart = JsonUtils.parse(json, Cart.class);
         cart.setNum(num);
         //3.写入购物车
-        hashOperations.put(skuId.toString(),JsonUtils.serialize(cart));
+        hashOperations.put(skuId.toString(), JsonUtils.serialize(cart));
     }
 
     /**
-     * 删除购物车中的商品
+     * 4 删除购物车中的商品
+     *
      * @param skuId
      */
     @Override
@@ -132,7 +136,7 @@ public class CartServiceImpl implements CartService {
         //1.获取登录用户
         UserInfo userInfo = LoginInterceptor.getLoginUser();
         String key = KEY_PREFIX + userInfo.getId();
-        BoundHashOperations<String,Object,Object> hashOperations = this.stringRedisTemplate.boundHashOps(key);
+        BoundHashOperations<String, Object, Object> hashOperations = this.stringRedisTemplate.boundHashOps(key);
         //2.删除商品
         hashOperations.delete(skuId);
     }

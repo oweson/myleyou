@@ -42,7 +42,7 @@ public interface GoodsApi {
             @RequestParam(value = "saleable", defaultValue = "true") Boolean saleable);
 
     /**
-     * 根2 据spu商品id查询详情
+     * 2 根据spu商品id查询详情
      *
      * @param id
      * @return

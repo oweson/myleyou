@@ -21,18 +21,18 @@ import java.security.PublicKey;
 @RefreshScope
 public class JwtProperties {
     /**
-     * 公钥
+     * 1公钥
      */
     private PublicKey publicKey;
 
     /**
-     * 公钥地址
+     * 2 公钥地址
      */
     @Value("${leyou.jwt.pubKeyPath}")
     private String pubKeyPath;
 
     /**
-     * cookie名字
+     * 3 cookie名字
      */
     @Value("${leyou.jwt.cookieName}")
     private String cookieName;
@@ -71,7 +71,7 @@ public class JwtProperties {
      * @PostConstruct :在构造方法执行之后执行该方法
      */
     @PostConstruct
-    public void init(){
+    public void init() {
         try {
             // 获取公钥
             this.publicKey = RsaUtils.getPublicKey(pubKeyPath);

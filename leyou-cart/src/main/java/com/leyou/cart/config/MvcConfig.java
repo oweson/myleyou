@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -22,16 +23,20 @@ public class MvcConfig implements WebMvcConfigurer {
     private JwtProperties jwtProperties;
 
     @Bean
-    public LoginInterceptor loginInterceptor(){
+    public LoginInterceptor loginInterceptor() {
         return new LoginInterceptor(jwtProperties);
     }
 
+    /**
+     * 1 登陆拦截
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loginInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/a/b");
     }
 
-//    @Bean
+
+    //    @Bean
 //    public FilterRegistrationBean someFilterRegistration1() {
 //        //新建过滤器注册类
 //        FilterRegistrationBean registration = new FilterRegistrationBean();

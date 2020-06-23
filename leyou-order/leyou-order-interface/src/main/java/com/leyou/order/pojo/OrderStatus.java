@@ -1,7 +1,6 @@
 package com.leyou.order.pojo;
 
 
-
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
@@ -29,32 +28,32 @@ public class OrderStatus {
     private Integer status;
 
     /**
-     * 创建时间
+     * 1 创建时间
      */
     private Date createTime;
 
     /**
-     * 付款时间
+     * 2 付款时间
      */
     private Date paymentTime;
 
     /**
-     *  发货时间
+     * 3 发货时间
      */
     private Date consignTime;
 
     /**
-     * 交易结束时间
+     * 4 交易结束时间
      */
     private Date endTime;
 
     /**
-     * 交易关闭时间
+     * 5 交易关闭时间
      */
     private Date closeTime;
 
     /**
-     * 评价时间
+     * 6 评价时间
      */
     private Date commentTime;
 

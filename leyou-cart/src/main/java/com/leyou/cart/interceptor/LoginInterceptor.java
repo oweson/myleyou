@@ -22,7 +22,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
     private JwtProperties jwtProperties;
 
     /**
-     * 定义一个线程域，存放登录用户
+     * 1 定义一个线程域，存放登录用户
      */
     private static final ThreadLocal<UserInfo> t1 = new ThreadLocal<>();
 

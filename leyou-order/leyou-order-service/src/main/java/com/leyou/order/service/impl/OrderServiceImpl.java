@@ -233,11 +233,21 @@ public class OrderServiceImpl implements OrderService {
         orderDetailList.forEach(orderDetail -> ids.add(orderDetail.getSkuId()));
         return ids;
     }
+    // myself
+    public List<Long> querySkuIds(long id){
+        Example example = new Example(OrderDetail.class);;
+       example.createCriteria().andEqualTo("orderId", id);
+        List<OrderDetail> orderDetailList = this.orderDetailMapper.selectByExample(example);
+        List<Long> longList = new ArrayList<>();
+        orderDetailList.forEach(orderDetail -> longList.add(orderDetail.getId()));
+        return longList;
+    }
 
     /**
      * 根据订单号查询订单状态
      * @param id
      * @return
+     * todo 缺乏横向越权的校验！
      */
     @Override
     public OrderStatus queryOrderStatusById(Long id) {
