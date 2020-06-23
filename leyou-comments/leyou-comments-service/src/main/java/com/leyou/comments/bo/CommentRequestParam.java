@@ -43,6 +43,13 @@ public class CommentRequestParam {
         }
         return Math.max(DEFAULT_PAGE, page);
     }
+  //   myself
+    public Integer getDefalultPageNumber() {
+        if (page == null) {
+            return DEFAULT_PAGE;
+        }
+        return Math.max(DEFAULT_PAGE, page);
+    }
 
     public void setPage(Integer page) {
         this.page = page;

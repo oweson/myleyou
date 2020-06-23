@@ -10,14 +10,23 @@ package com.leyou.comments.pojo;
  * 访问服务类
  */
 public class Spit {
+    /**
+     * 1 吐槽id
+     */
     private String _id;
 
     private String content;
-   // 谁评论的
+    /**
+     * 2 谁评论的
+     */
     private String userid;
-
+    /**
+     * 3 评论人的昵称
+     */
     private String nickname;
-  // 评论的访客
+    /**
+     * 4 浏览人数
+     */
     private Integer visits;
 
     public String get_id() {
