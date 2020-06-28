@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b75c075-7119-406e-ac04-744f31ddb854" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/client/MyGoodsClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/config/a.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/config/MvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/config/MvcConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/filter/CartFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/filter/CartFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/interceptor/LoginInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/interceptor/LoginInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/pojo/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/pojo/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/properties/JwtProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/properties/JwtProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/service/impl/CartServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-cart/src/main/java/com/leyou/cart/service/impl/CartServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-item/leyou-item-interface/src/main/java/com/leyou/item/api/GoodsApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-item/leyou-item-interface/src/main/java/com/leyou/item/api/GoodsApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-interface/src/main/java/com/leyou/order/pojo/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-interface/src/main/java/com/leyou/order/pojo/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-interface/src/main/java/com/leyou/order/pojo/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-interface/src/main/java/com/leyou/order/pojo/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-interface/src/main/java/com/leyou/order/pojo/OrderDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-interface/src/main/java/com/leyou/order/pojo/OrderDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-interface/src/main/java/com/leyou/order/pojo/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-interface/src/main/java/com/leyou/order/pojo/OrderStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/controller/AddressController.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/controller/AddressController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/interceptor/LoginInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/interceptor/LoginInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/properties/PayProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/properties/PayProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/service/impl/AddressServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/service/impl/AddressServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/utils/PayHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/leyou-order/leyou-order-service/src/main/java/com/leyou/order/utils/PayHelper.java" afterDir="false" />
-    </list>
+    <list default="true" id="0b75c075-7119-406e-ac04-744f31ddb854" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,6 +36,7 @@
     <option name="width" value="1755" />
     <option name="height" value="1000" />
   </component>
+  <component name="ProjectId" id="1dweKcVFJJnpLMYdMkvvSM0HPxd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -68,6 +45,7 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
