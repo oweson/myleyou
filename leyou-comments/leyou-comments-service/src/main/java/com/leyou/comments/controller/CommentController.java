@@ -98,7 +98,7 @@ public class CommentController {
 
     /**
      * 3 增加评论
-     *
+     * todo 评价订单！ok
      * @param review
      * @return
      */
@@ -114,7 +114,7 @@ public class CommentController {
 
     /**
      * 4 根据评论id查询评论
-     *
+     * ok;
      * @param id
      * @return
      */
@@ -129,7 +129,7 @@ public class CommentController {
 
     /**
      * 5 修改评论
-     *ok!
+     * ok!
      * @param review
      * @return
      */
@@ -141,7 +141,7 @@ public class CommentController {
 
     /**
      * 6 根据评论id删除评论
-     *
+     * ok
      * @param id
      * @return
      */
@@ -153,7 +153,7 @@ public class CommentController {
 
     /**
      * 7 根据评论id访问量加1
-     *
+     *  ok 评论的数量加一
      * @param id
      * @return
      */

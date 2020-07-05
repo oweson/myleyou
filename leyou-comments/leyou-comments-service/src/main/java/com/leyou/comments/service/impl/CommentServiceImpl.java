@@ -150,7 +150,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     /**
-     * 访问量加一
+     * 访问量加一，只更新必要的字段
      *
      * @param id
      */
