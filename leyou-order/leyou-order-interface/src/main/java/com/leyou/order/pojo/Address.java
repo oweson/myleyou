@@ -17,52 +17,52 @@ public class Address {
     private Long id;
 
     /**
-     * 用户id
+     * 1 用户id
      */
     private Long userId;
 
     /**
-     * 收货人
+     * 2 收货人
      */
     private String name;
 
     /**
-     * 收货电话
+     * 3 收货电话
      */
     private String phone;
 
     /**
-     * 邮编
+     * 4 邮编
      */
     private String zipCode;
 
     /**
-     * 省
+     * 5 省
      */
     private String state;
 
     /**
-     * 市
+     * 6 市
      */
     private String city;
 
     /**
-     * 区/县
+     * 7 区/县
      */
     private String district;
 
     /**
-     * 详细地址
+     * 8 详细地址
      */
     private String address;
 
     /**
-     * 是否是默认地址
+     * 9 是否是默认地址
      */
     private Boolean defaultAddress;
 
     /**
-     * 地址标签
+     * 10地址标签
      */
     private String label;
 

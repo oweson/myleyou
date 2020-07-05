@@ -1,8 +1,6 @@
 package com.leyou.order.pojo;
 
 
-
-
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -104,7 +102,7 @@ public class Order {
     private String receiverCity;
 
     /**
-     *  区/县
+     * 区/县
      */
     private String receiverDistrict;
 
@@ -127,7 +125,9 @@ public class Order {
      * 订单来源 1:app端，2：pc端，3：M端，4：微信端，5：手机qq端
      */
     private Integer sourceType;
-
+    /**
+     * 一对多的关系：一个订单多个订单详情
+     */
     @Transient
     private List<OrderDetail> orderDetails;
 

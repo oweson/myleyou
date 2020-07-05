@@ -15,31 +15,31 @@ import org.springframework.context.annotation.Configuration;
 public class PayProperties {
 
     /**
-     * 公众账号ID
+     * 1 公众账号ID
      */
     @Value("${leyou.pay.appId}")
     private String appId;
 
     /**
-     * 商户号
+     * 2 商户号
      */
     @Value("${leyou.pay.mchId}")
     private String mchId;
 
     /**
-     * 生成签名的密钥
+     * 3 生成签名的密钥
      */
     @Value("${leyou.pay.key}")
     private String key;
 
     /**
-     * 连接超时时间
+     * 4 连接超时时间
      */
     @Value("${leyou.pay.connectTimeoutMs}")
     private int connectTimeoutMs;
 
     /**
-     * 读取超时时间
+     * 5 读取超时时间
      */
     @Value("${leyou.pay.connectTimeoutMs}")
     private int readTimeoutMs;

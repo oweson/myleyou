@@ -5,6 +5,7 @@ import com.leyou.order.interceptor.LoginInterceptor;
 import com.leyou.order.mapper.AddressMapper;
 import com.leyou.order.pojo.Address;
 import com.leyou.order.service.AddressService;
+import com.leyou.user.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -42,6 +43,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public List<Address> queryAddressByUserId() {
         UserInfo userInfo = LoginInterceptor.getLoginUser();
+        // todo 和Generator的UserExample作用是类似的
         Example example = new Example(Address.class);
         example.createCriteria().andEqualTo("userId",userInfo.getId());
         return this.addressMapper.selectByExample(example);

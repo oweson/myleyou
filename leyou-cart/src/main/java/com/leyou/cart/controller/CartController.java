@@ -22,46 +22,50 @@ public class CartController {
     private CartService cartService;
 
     /**
-     * 添加购物车
+     * 1 加购物车
+     *
      * @param cart
      * @return
      */
     @PostMapping
-    public ResponseEntity<Void> addCart(@RequestBody Cart cart){
+    public ResponseEntity<Void> addCart(@RequestBody Cart cart) {
         this.cartService.addCart(cart);
         return ResponseEntity.ok().build();
     }
 
     /**
-     * 查询购物车
+     * 2 查询购物车
+     *
      * @return
      */
     @GetMapping
-    public ResponseEntity<List<Cart>> queryCartList(){
+    public ResponseEntity<List<Cart>> queryCartList() {
         List<Cart> carts = this.cartService.queryCartList();
-        if(carts == null){
+        if (carts == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.ok(carts);
     }
 
     /**
-     * 修改购物车中商品数量
+     * 3 修改购物车中商品数量
+     *
      * @return
      */
     @PutMapping
-    public ResponseEntity<Void> updateNum(@RequestParam("skuId") Long skuId,@RequestParam("num") Integer num){
-        this.cartService.updateNum(skuId,num);
+    public ResponseEntity<Void> updateNum(@RequestParam("skuId") Long skuId, @RequestParam("num") Integer num) {
+        this.cartService.updateNum(skuId, num);
         return ResponseEntity.ok().build();
     }
 
     /**
-     * 删除购物车中的商品
+     * 4 删除购物车中的商品
+     *
      * @param skuId
      * @return
      */
     @DeleteMapping("{skuId}")
-    public ResponseEntity<Void> deleteCart(@PathVariable("skuId") String skuId){
+    public ResponseEntity<Void> deleteCart(@PathVariable("skuId") String skuId) {
         this.cartService.deleteCart(skuId);
         return ResponseEntity.ok().build();
     }

@@ -96,7 +96,7 @@ public class PayHelper {
      * @return
      */
     public PayState queryOrder(Long orderId) {
-        Map<String, String> data = new HashMap<>();
+        Map<String, String> data = new HashMap<>(16);
         // 订单号
         data.put("out_trade_no", orderId.toString());
         try {
@@ -108,7 +108,6 @@ public class PayHelper {
             String state = result.get("trade_state");
             if ("SUCCESS".equals(state)) {
                 // success，则认为付款成功
-
                 // 修改订单状态
                 this.orderService.updateOrderStatus(orderId, 2);
                 return PayState.SUCCESS;

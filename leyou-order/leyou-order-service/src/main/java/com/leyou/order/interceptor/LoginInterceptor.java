@@ -94,6 +94,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
      */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        // 一次调用完成就清除这个用户的信息
        t1.remove();
     }
 
