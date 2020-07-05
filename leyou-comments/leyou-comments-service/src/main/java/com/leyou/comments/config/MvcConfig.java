@@ -38,7 +38,7 @@ public class MvcConfig implements WebMvcConfigurer {
     }
 
     /**
-     * 登陆拦截，其他的放行
+     * 1 登陆拦截，其他的放行
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

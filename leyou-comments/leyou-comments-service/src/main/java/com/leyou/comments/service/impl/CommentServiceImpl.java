@@ -1,4 +1,5 @@
 package com.leyou.comments.service.impl;
+
 import com.leyou.comments.bo.CommentRequestParam;
 import com.leyou.comments.client.OrderClient;
 import com.leyou.comments.dao.CommentDao;
@@ -46,19 +47,17 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Review findOne(String id) {
         return commentDao.findById(id).orElse(null);
-        //判断空
-//        Optional<Review> optional = commentDao.findById(id);
-//        return optional.orElse(null);
     }
 
     /**
      * 新增
      * 注意：一个用户只能发表一个顶级评论，可以追评（在一个订单中）
+     *
      * @param review
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean add(Long orderId,Review review) {
+    public boolean add(Long orderId, Review review) {
         //1.检查用户是否在该商品下发表过顶级评论过
         if (review.getIsparent()) {
             Query query2 = new Query();
@@ -72,7 +71,7 @@ public class CommentServiceImpl implements CommentService {
         }
         //2.修改订单状态,6代表评价状态
         boolean result = this.orderClient.updateOrderStatus(orderId, 6).getBody();
-        if (!result){
+        if (!result) {
             return false;
         }
         //3.添加评论
@@ -84,15 +83,15 @@ public class CommentServiceImpl implements CommentService {
         review.setComment(0);
         review.setThumbup(0);
         review.setVisits(0);
-        if (review.getParentid() != null && !"".equals(review.getParentid())){
+        if (review.getParentid() != null && !"".equals(review.getParentid())) {
             //如果存在上级id，则上级评论数加1，将上级评论的isParent设置为true，浏览量加一
             Query query = new Query();
             query.addCriteria(Criteria.where("_id").is(review.getParentid()));
             Update update = new Update();
-            update.inc("comment",1);
-            update.set("isparent",true);
-            update.inc("visits",1);
-            this.mongoTemplate.updateFirst(query,update,"review");
+            update.inc("comment", 1);
+            update.set("isparent", true);
+            update.inc("visits", 1);
+            this.mongoTemplate.updateFirst(query, update, "review");
         }
         commentDao.save(review);
         return true;
@@ -120,22 +119,24 @@ public class CommentServiceImpl implements CommentService {
 
     /**
      * 1 查询某一商品下的所有顶级评论
+     *
      * @param commentRequestParam
      * @return
      */
     @Override
     public Page<Review> findReviewBySpuId(CommentRequestParam commentRequestParam) {
-        PageRequest pageRequest = PageRequest.of(commentRequestParam.getPage()-1, commentRequestParam.getDefaultSize());
-        return this.commentDao.findReviewBySpuid(commentRequestParam.getSpuId()+"",pageRequest);
+        PageRequest pageRequest = PageRequest.of(commentRequestParam.getPage() - 1, commentRequestParam.getDefaultSize());
+        return this.commentDao.findReviewBySpuid(commentRequestParam.getSpuId() + "", pageRequest);
     }
 
-    public Page<Review> findReviewBySpuId02(CommentRequestParam commentRequestParam){
-        PageRequest pageRequest = new PageRequest(commentRequestParam.getPage()-1, commentRequestParam.getDefaultSize());
-        return this.commentDao.findReviewBySpuid(commentRequestParam.getSpuId()+"",pageRequest);
+    public Page<Review> findReviewBySpuId02(CommentRequestParam commentRequestParam) {
+        PageRequest pageRequest = new PageRequest(commentRequestParam.getPage() - 1, commentRequestParam.getDefaultSize());
+        return this.commentDao.findReviewBySpuid(commentRequestParam.getSpuId() + "", pageRequest);
     }
 
     /**
      * 评论点赞(需要改进)
+     *
      * @param id
      */
     @Override
@@ -143,13 +144,14 @@ public class CommentServiceImpl implements CommentService {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(id));
         Update update = new Update();
-        update.inc("thumbup",1);
-        UpdateResult result = this.mongoTemplate.updateFirst(query,update,"review");
+        update.inc("thumbup", 1);
+        UpdateResult result = this.mongoTemplate.updateFirst(query, update, "review");
         return result.isModifiedCountAvailable();
     }
 
     /**
      * 访问量加一
+     *
      * @param id
      */
     @Override
@@ -157,17 +159,17 @@ public class CommentServiceImpl implements CommentService {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(id));
         Update update = new Update();
-        update.inc("visits",1);
-        UpdateResult result = this.mongoTemplate.updateFirst(query,update,"review");
+        update.inc("visits", 1);
+        UpdateResult result = this.mongoTemplate.updateFirst(query, update, "review");
         return result.isModifiedCountAvailable();
     }
     // 访问量是mongodb处理的
 
-    public  boolean updateVisits02(String id){
+    public boolean updateVisits02(String id) {
         Query queue = new Query();
         queue.addCriteria(Criteria.where("_id").is(id));
         Update update = new Update();
-        update.inc("visits",1);
+        update.inc("visits", 1);
         UpdateResult updateResult = this.mongoTemplate.updateFirst(queue, update, "review");
         return updateResult.isModifiedCountAvailable();
 

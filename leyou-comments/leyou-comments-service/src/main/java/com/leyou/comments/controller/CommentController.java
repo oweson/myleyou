@@ -97,7 +97,7 @@ public class CommentController {
     }
 
     /**
-     * 增加评论
+     * 3 增加评论
      *
      * @param review
      * @return
@@ -113,7 +113,7 @@ public class CommentController {
     }
 
     /**
-     * 根据评论id查询评论
+     * 4 根据评论id查询评论
      *
      * @param id
      * @return
@@ -128,8 +128,8 @@ public class CommentController {
     }
 
     /**
-     * 修改评论
-     *
+     * 5 修改评论
+     *ok!
      * @param review
      * @return
      */
@@ -140,7 +140,7 @@ public class CommentController {
     }
 
     /**
-     * 根据评论id删除评论
+     * 6 根据评论id删除评论
      *
      * @param id
      * @return
@@ -152,7 +152,7 @@ public class CommentController {
     }
 
     /**
-     * 根据评论id访问量加1
+     * 7 根据评论id访问量加1
      *
      * @param id
      * @return
