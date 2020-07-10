@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b75c075-7119-406e-ac04-744f31ddb854" name="Default Changelist" comment="" />
+    <list default="true" id="0b75c075-7119-406e-ac04-744f31ddb854" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,6 +41,11 @@
   <component name="ProjectId" id="1dweKcVFJJnpLMYdMkvvSM0HPxd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RequestMappingsPanelOrder0" value="0" />
@@ -208,7 +215,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0abe3fbb-44e1-4353-9308-65335469731d" name="Default Changelist" comment="" />
+      <changelist id="0b75c075-7119-406e-ac04-744f31ddb854" name="Default Changelist" comment="" />
       <created>1591373766233</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -216,6 +223,8 @@
       <workItem from="1591373769183" duration="5157000" />
       <workItem from="1591789402285" duration="3398000" />
       <workItem from="1592727504395" duration="4759000" />
+      <workItem from="1593340522081" duration="72000" />
+      <workItem from="1594002787474" duration="631000" />
     </task>
     <servers />
   </component>
