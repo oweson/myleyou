@@ -71,6 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
         //3.todo 修改父节点???
         Category parent = new Category();
         parent.setId(category.getParentId());
+        // 有了子节点才是父节点，更新的是下面的这个字段
         parent.setIsParent(true);
         this.categoryMapper.updateByPrimaryKeySelective(parent);
 
@@ -79,6 +80,7 @@ public class CategoryServiceImpl implements CategoryService {
     /**
      * 4 更新
      * ok!
+     *
      * @param category
      */
     @Override
@@ -93,10 +95,9 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(Long id) {
         /**
          * 先根据id查询要删除的对象，然后进行判断
-         * 如果是父节点，那么删除所有附带子节点,然后维护中间表
-         * 如果是子节点，那么只删除自己,然后判断父节点孩子的个数，如果孩子不为0，则不做修改；
-         * 如果孩子个数为0，则修改父节点isParent
-         * 的值为false,最后维护中间表
+         * 1 如果是父节点，那么删除所有附带子节点,然后维护中间表
+         * 2 如果是子节点，那么只删除自己,然后判断父节点孩子的个数，如果孩子不为0，则不做修改；
+         * 3 如果孩子个数为0，则修改父节点isParent的值为false,最后维护中间表
          */
         Category category = this.categoryMapper.selectByPrimaryKey(id);
         if (category.getIsParent()) {
@@ -189,6 +190,7 @@ public class CategoryServiceImpl implements CategoryService {
      * A: 1
      * B:1,2
      * C:1,2,3
+     *
      * @param id
      * @return
      */
@@ -212,9 +214,11 @@ public class CategoryServiceImpl implements CategoryService {
      * @param leafNode
      */
     private void queryAllLeafNode(Category category, List<Category> leafNode) {
+        // 1 非父节点
         if (!category.getIsParent()) {
             leafNode.add(category);
         }
+        // 2 父节点
         Example example = new Example(Category.class);
         example.createCriteria().andEqualTo("parentId", category.getId());
         List<Category> list = this.categoryMapper.selectByExample(example);

@@ -113,10 +113,10 @@ public class BrandServiceImpl implements BrandService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deleteBrand(Long id) {
-        //删除品牌信息
+        // 1 删除品牌信息
         this.brandMapper.deleteByPrimaryKey(id);
 
-        //维护中间表
+        // 2 维护中间表
         this.brandMapper.deleteByBrandIdInCategoryBrand(id);
     }
 
@@ -144,7 +144,7 @@ public class BrandServiceImpl implements BrandService {
     }
 
     /**
-     * 7 根据品牌id集合查询品牌信息
+     * 7 根据品牌ids集合查询品牌信息
      *
      * @param ids
      * @return

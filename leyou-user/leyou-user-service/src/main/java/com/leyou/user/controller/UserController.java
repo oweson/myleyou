@@ -43,6 +43,7 @@ public class UserController {
      * @return
      */
     @PostMapping("code")
+    // todo redis异常
     public ResponseEntity senVerifyCode(@RequestParam("phone") String phone){
         Boolean result = this.userService.sendVerifyCode(phone);
         if (result == null || !result){

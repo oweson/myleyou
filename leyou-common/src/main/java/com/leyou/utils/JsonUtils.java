@@ -7,6 +7,7 @@ import com.sun.istack.internal.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.smartcardio.CardTerminal;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -87,5 +88,16 @@ public class JsonUtils {
             logger.error("json解析出错：" + json, e);
             return null;
         }
+    }
+
+    public static void main(String[] args) {
+        User user = new User();
+        user.setId(0);
+        user.setName("ppx");
+        String serialize = JsonUtils.serialize(user);
+        System.out.println(serialize);
+        User parse = JsonUtils.parse(serialize, User.class);
+        System.out.println(parse.getName());
+
     }
 }

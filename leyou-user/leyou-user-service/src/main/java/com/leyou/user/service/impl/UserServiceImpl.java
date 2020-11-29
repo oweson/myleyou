@@ -47,6 +47,12 @@ public class UserServiceImpl implements UserService {
 
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
+    /**
+     * 通用校验
+     * @param data
+     * @param type
+     * @return
+     */
     @Override
     public Boolean checkData(String data, Integer type) {
         User user = new User();
@@ -63,20 +69,7 @@ public class UserServiceImpl implements UserService {
         return this.userMapper.selectCount(user) == 0;
     }
 
-    public Boolean checkData002(String data, Integer type) {
-        User user = new User();
-        switch (type) {
-            case 1:
-                user.setUsername(data);
-                break;
-            case 2:
-                user.setPassword(data);
-                break;
-            default:
-                return null;
-        }
-        return this.userMapper.selectCount(user) == 0;
-    }
+
 
     /**
      * 发送短信验证码
@@ -216,7 +209,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User queryUser02(String userName, String password) {
-        BoundHashOperations<String, Object, Object> stringObjectObjectBoundHashOperations = this.stringRedisTemplate.boundHashOps();
+        BoundHashOperations<String, Object, Object> stringObjectObjectBoundHashOperations = this.stringRedisTemplate.boundHashOps(21+"");
         String username = (String) stringObjectObjectBoundHashOperations.get("username");
         User user;
         if (StringUtils.isEmpty(username)) {
