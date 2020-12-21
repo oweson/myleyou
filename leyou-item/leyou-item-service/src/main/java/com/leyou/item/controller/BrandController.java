@@ -24,7 +24,7 @@ public class BrandController {
 
     /**
      * 1 分页查询品牌
-     *
+     * ok!
      * @param page
      * @param rows
      * @param sortBy
@@ -90,8 +90,9 @@ public class BrandController {
 
 
     /**
-     * 5 删除tb_brand中的数据,单个删除、多个删除二合一
+     * 5 删除tb_brand中的数据,单个删除、多个删除二合一!
      * ok!
+     *
      * @param bid
      * @return
      */
@@ -112,6 +113,7 @@ public class BrandController {
     /**
      * 6 根据category的id查询品牌信息
      * ok!
+     *
      * @param cid
      * @return
      */
@@ -127,6 +129,7 @@ public class BrandController {
     /**
      * 7 根据品牌id结合，查询品牌信息
      * ok!
+     *
      * @param ids
      * @return
      */

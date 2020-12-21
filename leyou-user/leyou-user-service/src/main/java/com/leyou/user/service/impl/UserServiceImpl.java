@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 通用校验
+     *
      * @param data
      * @param type
      * @return
@@ -63,12 +64,14 @@ public class UserServiceImpl implements UserService {
             case 2:
                 user.setPhone(data);
                 break;
+            case 3:
+                // todo 邮箱！
+                break;
             default:
                 return null;
         }
         return this.userMapper.selectCount(user) == 0;
     }
-
 
 
     /**
@@ -208,25 +211,7 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-    public User queryUser02(String userName, String password) {
-        BoundHashOperations<String, Object, Object> stringObjectObjectBoundHashOperations = this.stringRedisTemplate.boundHashOps(21+"");
-        String username = (String) stringObjectObjectBoundHashOperations.get("username");
-        User user;
-        if (StringUtils.isEmpty(username)) {
-            // 1 缓存里面没有数据
-            User record = new User();
-            record.setUsername(username);
-            user = this.userMapper.selectOne(record);
-            stringObjectObjectBoundHashOperations.put(user.getUsername(), JsonUtils.serialize(user));
-        } else {
-            // 缓存存在数据，序列化对象直接返回；
-            user = JsonUtils.parse(userName, User.class);
-        }
-        // todo 校验用户名？？？
-        return user;
 
-
-    }
 
 
     /**

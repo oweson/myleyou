@@ -24,14 +24,15 @@ public class UserController {
 
     /**
      * 1 用户数据检查
+     *
      * @param data
      * @param type
      * @return
      */
     @GetMapping("check/{data}/{type}")
-    public ResponseEntity<Boolean> checkUserData(@PathVariable("data") String data,@PathVariable(value = "type") Integer type){
-        Boolean result = this.userService.checkData(data,type);
-        if (result == null){
+    public ResponseEntity<Boolean> checkUserData(@PathVariable("data") String data, @PathVariable(value = "type") Integer type) {
+        Boolean result = this.userService.checkData(data, type);
+        if (result == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(result);
@@ -39,14 +40,15 @@ public class UserController {
 
     /**
      * 2 发送短信验证码
+     *
      * @param phone
      * @return
      */
     @PostMapping("code")
     // todo redis异常
-    public ResponseEntity senVerifyCode(@RequestParam("phone") String phone){
+    public ResponseEntity senVerifyCode(@RequestParam("phone") String phone) {
         Boolean result = this.userService.sendVerifyCode(phone);
-        if (result == null || !result){
+        if (result == null || !result) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -54,14 +56,15 @@ public class UserController {
 
     /**
      * 3 注册
+     *
      * @param user
      * @param code
      * @return
      */
     @PostMapping("register")
-    public ResponseEntity<Void> register(@Valid User user, @RequestParam("code") String code){
-        Boolean result = this.userService.register(user,code);
-        if(result == null || !result){
+    public ResponseEntity<Void> register(@Valid User user, @RequestParam("code") String code) {
+        Boolean result = this.userService.register(user, code);
+        if (result == null || !result) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -69,15 +72,16 @@ public class UserController {
 
 
     /**
-     *  4 用户验证
+     * 4 用户验证
+     * todo? 干啥的？
      * @param username
      * @param password
      * @return
      */
     @GetMapping("query")
-    public ResponseEntity<User> queryUser(@RequestParam("username")String username,@RequestParam("password")String password){
-        User user = this.userService.queryUser(username,password);
-        if (user == null){
+    public ResponseEntity<User> queryUser(@RequestParam("username") String username, @RequestParam("password") String password) {
+        User user = this.userService.queryUser(username, password);
+        if (user == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         return ResponseEntity.ok(user);
