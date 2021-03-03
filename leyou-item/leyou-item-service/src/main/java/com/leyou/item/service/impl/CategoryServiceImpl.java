@@ -7,6 +7,7 @@ import com.leyou.myexception.LyException;
 import com.leyou.myexception.MyException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import tk.mybatis.mapper.entity.Example;
 
@@ -59,6 +60,7 @@ public class CategoryServiceImpl implements CategoryService {
      * 3 新增分类
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void saveCategory(Category category) {
         /**
          * 将本节点插入到数据库中

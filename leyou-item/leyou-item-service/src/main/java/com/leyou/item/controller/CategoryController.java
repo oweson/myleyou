@@ -21,7 +21,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     /**
-     * 1 根据父节点查询商品类目
+     * 1 根据父节点查询商品类目 ok!
      *
      * @param pid
      * @return
@@ -29,7 +29,7 @@ public class CategoryController {
     @GetMapping("/list")
     public ResponseEntity<List<Category>> queryCategoryByPid(@RequestParam("pid") Long pid) {
 
-        //如果pid的值为-1那么需要获取数据库中最后一条数据
+        // todo 如果pid的值为-1那么需要获取数据库中最后一条数据???
         if (pid == -1) {
             List<Category> last = this.categoryService.queryLast();
             return ResponseEntity.ok(last);
@@ -63,7 +63,7 @@ public class CategoryController {
 
     /**
      * 3 保存
-     * todo
+     * ok!
      *
      * @return
      */
@@ -87,7 +87,7 @@ public class CategoryController {
 
     /**
      * 5 删除
-     * todo
+     * todo 复杂！
      *
      * @return
      */
