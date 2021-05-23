@@ -50,7 +50,7 @@ public class OrderController {
     public ResponseEntity<List<Long>> createOrder(@RequestBody @Valid Order order) {
         List<Long> skuId = this.orderService.queryStock(order);
         if (skuId.size() != 0) {
-            //库存不足
+            // 1 库存不足
             return new ResponseEntity<>(skuId, HttpStatus.OK);
         }
 
@@ -117,7 +117,7 @@ public class OrderController {
 
 
     /**
-     * 4 更新订单状态
+     * 4 更新订单状态，卖家操作或者买家操作！
      *
      * @param id
      * @param status

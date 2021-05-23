@@ -15,13 +15,13 @@ import org.springframework.context.annotation.Configuration;
 public class IdWorkerProperties {
 
     /**
-     * 当前机器id
+     * 1 当前机器id
      */
     @Value("${leyou.worker.workerId}")
     private long workerId;
 
     /**
-     * 序列号
+     * 2 序列号
      */
     @Value("${leyou.worker.dataCenterId}")
     private long dataCenterId;

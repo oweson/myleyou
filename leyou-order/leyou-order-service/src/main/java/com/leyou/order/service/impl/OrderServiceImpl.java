@@ -2,6 +2,7 @@ package com.leyou.order.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.google.common.collect.Lists;
 import com.leyou.auth.entity.UserInfo;
 import com.leyou.common.pojo.PageResult;
 import com.leyou.item.pojo.Stock;
@@ -105,7 +106,7 @@ public class OrderServiceImpl implements OrderService {
 
         //8.保存订单详情，使用批量插入功能
         this.orderDetailMapper.insertList(order.getOrderDetails());
-
+       // 9 减去库存！
         order.getOrderDetails().forEach(orderDetail -> this.stockMapper.reduceStock(orderDetail.getSkuId(), orderDetail.getNum()));
 
         return orderId;
@@ -114,6 +115,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 根据订单号查询订单
+     *
      * @param id
      * @return
      */
@@ -123,7 +125,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = this.orderMapper.selectByPrimaryKey(id);
         //2.查询订单详情
         Example example = new Example(OrderDetail.class);
-        example.createCriteria().andEqualTo("orderId",id);
+        example.createCriteria().andEqualTo("orderId", id);
         List<OrderDetail> orderDetail = this.orderDetailMapper.selectByExample(example);
         orderDetail.forEach(System.out::println);
         //3.查询订单状态
@@ -138,6 +140,8 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 查询当前登录用户的订单，通过订单状态进行筛选
+     * 订单有多个订单详情
+     *
      * @param page
      * @param rows
      * @param status
@@ -145,9 +149,9 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public PageResult<Order> queryUserOrderList(Integer page, Integer rows, Integer status) {
-        try{
+        try {
             //1.分页
-            PageHelper.startPage(page,rows);
+            PageHelper.startPage(page, rows);
             //2.获取登录用户
             UserInfo userInfo = LoginInterceptor.getLoginUser();
             //3.查询
@@ -156,19 +160,20 @@ public class OrderServiceImpl implements OrderService {
             List<Order> orderList = pageInfo.getResult();
             orderList.forEach(order -> {
                 Example example = new Example(OrderDetail.class);
-                example.createCriteria().andEqualTo("orderId",order.getOrderId());
+                example.createCriteria().andEqualTo("orderId", order.getOrderId());
                 List<OrderDetail> orderDetailList = this.orderDetailMapper.selectByExample(example);
                 order.setOrderDetails(orderDetailList);
             });
-            return new PageResult<>(pageInfo.getTotal(),(long)pageInfo.getPages(), orderList);
-        }catch (Exception e){
-            logger.error("查询订单出错",e);
+            return new PageResult<>(pageInfo.getTotal(), (long) pageInfo.getPages(), orderList);
+        } catch (Exception e) {
+            logger.error("查询订单出错", e);
             return null;
         }
     }
 
     /**
      * 更新订单状态
+     *
      * @param id
      * @param status
      * @return
@@ -183,10 +188,10 @@ public class OrderServiceImpl implements OrderService {
         orderStatus.setStatus(status);
 
         //延时消息
-        OrderStatusMessage orderStatusMessage = new OrderStatusMessage(id,userInfo.getId(),userInfo.getUsername(),spuId,1);
-        OrderStatusMessage orderStatusMessage2 = new OrderStatusMessage(id,userInfo.getId(),userInfo.getUsername(),spuId,2);
+        OrderStatusMessage orderStatusMessage = new OrderStatusMessage(id, userInfo.getId(), userInfo.getUsername(), spuId, 1);
+        OrderStatusMessage orderStatusMessage2 = new OrderStatusMessage(id, userInfo.getId(), userInfo.getUsername(), spuId, 2);
         //1.根据状态判断要修改的时间
-        switch (status){
+        switch (status) {
             case 2:
                 //2.付款时间
                 orderStatus.setPaymentTime(new Date());
@@ -194,7 +199,7 @@ public class OrderServiceImpl implements OrderService {
             case 3:
                 //3.发货时间
                 orderStatus.setConsignTime(new Date());
-                //发送消息到延迟队列，防止用户忘记确认收货
+                //发送消息到延迟队列，防止用户忘记确认收货，忘记评价！
                 orderStatusService.sendMessage(orderStatusMessage);
                 orderStatusService.sendMessage(orderStatusMessage2);
                 break;
@@ -212,8 +217,8 @@ public class OrderServiceImpl implements OrderService {
                 orderStatus.setCommentTime(new Date());
                 break;
 
-                default:
-                    return null;
+            default:
+                return null;
         }
         int count = this.orderStatusMapper.updateByPrimaryKeySelective(orderStatus);
         return count == 1;
@@ -221,33 +226,26 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 根据订单号查询商品id
+     *
      * @param id
      * @return
      */
     @Override
     public List<Long> querySkuIdByOrderId(Long id) {
         Example example = new Example(OrderDetail.class);
-        example.createCriteria().andEqualTo("orderId",id);
+        example.createCriteria().andEqualTo("orderId", id);
         List<OrderDetail> orderDetailList = this.orderDetailMapper.selectByExample(example);
         List<Long> ids = new ArrayList<>();
         orderDetailList.forEach(orderDetail -> ids.add(orderDetail.getSkuId()));
         return ids;
     }
-    // myself
-    public List<Long> querySkuIds(long id){
-        Example example = new Example(OrderDetail.class);;
-       example.createCriteria().andEqualTo("orderId", id);
-        List<OrderDetail> orderDetailList = this.orderDetailMapper.selectByExample(example);
-        List<Long> longList = new ArrayList<>();
-        orderDetailList.forEach(orderDetail -> longList.add(orderDetail.getId()));
-        return longList;
-    }
+
 
     /**
      * 根据订单号查询订单状态
+     *
      * @param id
-     * @return
-     * todo 缺乏横向越权的校验！
+     * @return todo 缺乏横向越权的校验！
      */
     @Override
     public OrderStatus queryOrderStatusById(Long id) {
@@ -256,6 +254,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * 查询订单下商品的库存，返回库存不足的商品Id
+     *
      * @param order
      * @return
      */
@@ -264,7 +263,7 @@ public class OrderServiceImpl implements OrderService {
         List<Long> skuId = new ArrayList<>();
         order.getOrderDetails().forEach(orderDetail -> {
             Stock stock = this.stockMapper.selectByPrimaryKey(orderDetail.getSkuId());
-            if (stock.getStock() - orderDetail.getNum() < 0){
+            if (stock.getStock() - orderDetail.getNum() < 0) {
                 //先判断库存是否充足
                 skuId.add(orderDetail.getSkuId());
             }
@@ -272,18 +271,30 @@ public class OrderServiceImpl implements OrderService {
         return skuId;
     }
 
+    List<Long> queryNumber(Order order){
+        ArrayList<Long> longs = Lists.newArrayList();
+        order.getOrderDetails().stream().forEach(item->{
+            Stock stock = this.stockMapper.selectByPrimaryKey(item.getId());
+            if(stock.getStock()-item.getNum()<0){
+                longs.add(item.getId());
+            }
+
+        });
+        return longs;
+    }
+
     /**
      * 根据订单id查询其skuId
+     *
      * @param id
      * @return
      */
-    public Long findSkuIdByOrderId(Long id){
+    public Long findSkuIdByOrderId(Long id) {
         Example example = new Example(OrderDetail.class);
         example.createCriteria().andEqualTo("orderId", id);
         List<OrderDetail> orderDetail = this.orderDetailMapper.selectByExample(example);
         return orderDetail.get(0).getSkuId();
     }
-
 
 
 }

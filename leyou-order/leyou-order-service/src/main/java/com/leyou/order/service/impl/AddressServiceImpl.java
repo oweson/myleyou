@@ -27,7 +27,7 @@ public class AddressServiceImpl implements AddressService {
     public void deleteAddress(Long addressId) {
         UserInfo userInfo = LoginInterceptor.getLoginUser();
         Example example = new Example(Address.class);
-        example.createCriteria().andEqualTo("userId",userInfo.getId()).andEqualTo("id",addressId);
+        example.createCriteria().andEqualTo("userId", userInfo.getId()).andEqualTo("id", addressId);
         this.addressMapper.deleteByExample(example);
     }
 
@@ -45,7 +45,7 @@ public class AddressServiceImpl implements AddressService {
         UserInfo userInfo = LoginInterceptor.getLoginUser();
         // todo 和Generator的UserExample作用是类似的
         Example example = new Example(Address.class);
-        example.createCriteria().andEqualTo("userId",userInfo.getId());
+        example.createCriteria().andEqualTo("userId", userInfo.getId());
         return this.addressMapper.selectByExample(example);
     }
 
@@ -61,20 +61,35 @@ public class AddressServiceImpl implements AddressService {
     public Address queryAddressById(Long addressId) {
         UserInfo userInfo = LoginInterceptor.getLoginUser();
         Example example = new Example(Address.class);
-        example.createCriteria().andEqualTo("id",addressId).andEqualTo("userId",userInfo.getId());
+        example.createCriteria().andEqualTo("id", addressId).andEqualTo("userId", userInfo.getId());
         return this.addressMapper.selectByExample(example).get(0);
     }
 
-    public void setDefaultAddress(Address address){
-        if (address.getDefaultAddress()){
+    public void setDefaultAddress(Address address) {
+        if (address.getDefaultAddress()) {
             //如果将本地址设置为默认地址，那么该用户下的其他地址都应该是非默认地址
             List<Address> addressList = this.queryAddressByUserId();
             addressList.forEach(addressTemp -> {
-                if (addressTemp.getDefaultAddress()){
+                if (addressTemp.getDefaultAddress()) {
                     addressTemp.setDefaultAddress(false);
                     this.addressMapper.updateByPrimaryKeySelective(addressTemp);
                 }
-            } );
+            });
+        }
+    }
+
+    /**
+     * 默认地址处理
+     *
+     * @param address
+     */
+    public void detailDefaultAddress(Address address) {
+        if (address.getDefaultAddress()) {
+            this.queryAddressByUserId().forEach(item -> {
+                item.setDefaultAddress(false);
+                this.addressMapper.updateByPrimaryKeySelective(item);
+
+            });
         }
     }
 }
